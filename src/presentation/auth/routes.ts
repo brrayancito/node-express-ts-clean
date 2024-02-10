@@ -1,22 +1,16 @@
 import { Router } from "express";
+import { AuthController } from "./controller";
 
 
 
 export class AuthRoutes {
     static get routes(): Router {
         const router = Router();
+        const controller = new AuthController();
 
         // All my app's routes
-        router.post("/login", (req, res)=>{
-            res.json({
-             message: "Login..."   
-            })
-        });
-        router.post("/register", (req, res)=>{
-            res.json({
-             message: "Register..."   
-            })
-        });
+        router.post("/login", controller.loginUser);
+        router.post("/register", controller.registerUser);
 
         
 

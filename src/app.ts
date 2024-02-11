@@ -9,7 +9,7 @@ import { Server } from "./presentation/server";
 async function main() {
     // todo: await database connection
 
-    // todo: start server
+    // Start server
     new Server({
         port: envs.PORT,
         routes: AppRoutes.routes

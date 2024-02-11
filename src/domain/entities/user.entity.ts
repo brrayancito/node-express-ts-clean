@@ -8,7 +8,5 @@ export class UserEntity {
         public password: string,
         public role: string[],
         public img?: string,
-    ){
-
-    }
+    ){}
 }

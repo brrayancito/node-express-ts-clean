@@ -6,11 +6,11 @@ export class RegisterUserDto {
         public name: string,
         public email: string,
         public password: string
-    ) {}
+    ) { }
 
-    static create(object: {[key: string]: any}): [string?, RegisterUserDto?]{
+    static create(object: { [key: string]: any }): [string?, RegisterUserDto?] {
 
-        const {name, email, password} = object;
+        const { name, email, password } = object;
         if (!name) return ["Name is required"];
         if (!email) return ["Email is required"];
         if (!Validators.email.test(email)) return ["This email is not valid"];

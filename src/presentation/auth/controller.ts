@@ -4,14 +4,14 @@ import { RegisterUserDto } from "../../domain";
 
 export class AuthController {
 
-    constructor() {}
+    constructor() { }
 
     registerUser = (req: Request, res: Response) => {
-       const [error, registerUserDto] = RegisterUserDto.create(req.body)
+        const [error, registerUserDto] = RegisterUserDto.create(req.body)
 
-       if (error) return res.status(400).json({ error: error })
+        if (error) return res.status(400).json({ error: error })
 
-       return res.json(registerUserDto)
+        return res.json(registerUserDto)
     }
 
     loginUser = (req: Request, res: Response) => {

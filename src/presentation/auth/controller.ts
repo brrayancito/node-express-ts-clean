@@ -17,7 +17,7 @@ export class AuthController {
 
         this.authRepository.register(registerUserDto!)
             .then(user => res.json(user))
-            .catch(error => res.status(404).json({ error: error }))
+            .catch(error => res.status(404).json({ error: error.message }))
     }
 
     loginUser = (req: Request, res: Response) => {

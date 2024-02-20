@@ -1,6 +1,7 @@
 import { BcryptAdapter } from "../../config";
 import { UserModel } from "../../data/mongodb";
 import { AuthDatasource, CustomError, RegisterUserDto, UserEntity } from "../../domain";
+import { UserMapper } from "../mappers/user.mapper";
 
 type hashPasswordFunction = (password: string) => string
 type comparePasswordFunction = (password: string, hashed: string) => boolean
@@ -21,9 +22,6 @@ export class AuthDatasourceImpl implements AuthDatasource {
             const exist = await UserModel.findOne({ email: email });
             if (exist) throw CustomError.badRequest("User already exists");
 
-            // Hash password
-
-
             // Create user
             const user = await UserModel.create({
                 name: name,
@@ -33,13 +31,7 @@ export class AuthDatasourceImpl implements AuthDatasource {
 
             await user.save();
 
-            return new UserEntity(
-                user.id,
-                name,
-                email,
-                user.password,
-                user.roles,
-            );
+            return UserMapper.userEntityFromObject(user);
 
         } catch (error) {
             if (error instanceof CustomError) throw error;

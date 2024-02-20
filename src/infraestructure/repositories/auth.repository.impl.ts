@@ -4,7 +4,7 @@ import { AuthDatasource, AuthRepository, RegisterUserDto, UserEntity } from "../
 export class AuthRepositoryImpl implements AuthRepository {
 
     constructor(
-        private readonly authDatasource: AuthDatasource,
+        private readonly authDatasource: AuthDatasource
     ) { }
 
 

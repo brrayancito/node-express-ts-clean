@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { AuthRepository, RegisterUserDto } from "../../domain";
+import { AuthRepository, CustomError, RegisterUserDto } from "../../domain";
 
 
 export class AuthController {
@@ -13,11 +13,15 @@ export class AuthController {
 
         if (error) return res.status(400).json({ error: error })
 
-        // const user = await this.authRepository.register(registerUserDto!)
-
         this.authRepository.register(registerUserDto!)
             .then(user => res.json(user))
-            .catch(error => res.status(404).json({ error: error.message }))
+            .catch(error => {
+                if (error instanceof CustomError) {
+                    return res.status(error.statusCode).json({ error: error.message })
+                }
+
+                res.status(500).json({ Error: "Internal Server Error" })
+            })
     }
 
     loginUser = (req: Request, res: Response) => {

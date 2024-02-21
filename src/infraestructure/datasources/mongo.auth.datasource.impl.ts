@@ -27,7 +27,7 @@ export class AuthDatasourceImpl implements AuthDatasource {
                 name: name,
                 email: email,
                 password: this.hashPasswordFunc(password)
-            });
+            }).catch(error => { throw CustomError.internalServer("Something went wrong on creating user!") });
 
             await user.save();
 

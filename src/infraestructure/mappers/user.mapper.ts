@@ -4,12 +4,13 @@ import { UserEntity } from "../../domain";
 export class UserMapper {
 
     static userEntityFromObject(object: { [key: string]: any }) {
+        const { _id, name, email, password, roles } = object
         return new UserEntity(
-            object._id,
-            object.name,
-            object.email,
-            object.password,
-            object.roles,
+            _id,
+            name,
+            email,
+            password,
+            roles,
         )
     }
 }

@@ -16,7 +16,7 @@ export class AuthController {
 
         try {
             const user = await this.authRepository.register(registerUserDto!)
-            const token = await JwtAdapter.generateToken({ email: user.email })
+            const token = await JwtAdapter.generateToken({ id: user.id })
 
             return res.status(201).json({
                 user,
@@ -31,11 +31,6 @@ export class AuthController {
 
             res.status(500).json({ Error: "Internal Server Error" })
         }
-
-
-
-
-
 
 
     }

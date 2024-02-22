@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { UserController } from "./controller";
+import { AuthMiddleware } from "../middlewares/auth.middleware";
 
 
 
@@ -9,7 +10,7 @@ export class UserRoutes {
 
         const controller = new UserController();
 
-        router.get("/", controller.getUsers);
+        router.get("/", AuthMiddleware.validateJwt, controller.getUsers);
 
         return router
     }

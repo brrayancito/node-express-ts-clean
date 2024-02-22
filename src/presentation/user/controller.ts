@@ -8,17 +8,18 @@ import { UserRepositoryImpl } from "../../infraestructure"
 export class UserController {
 
     constructor(
-        private readonly UserRepository: UserRepository = new UserRepositoryImpl
+        private readonly userRepository: UserRepository = new UserRepositoryImpl()
     ) { }
 
     getUsers = async (req: Request, res: Response) => {
 
         try {
-            const users = await this.UserRepository.getUsers();
+            const users = await this.userRepository.getUsers();
 
             return res.status(200).json({
+                payload: req.body.payload,
                 total: users.length,
-                users
+                users,
             })
 
         } catch (error) {
@@ -29,7 +30,6 @@ export class UserController {
 
             res.status(500).json({ Error: "Internal Server Error" })
         }
-
 
     }
 

@@ -17,7 +17,7 @@ export class UserController {
             const users = await this.userRepository.getUsers();
 
             return res.status(200).json({
-                payload: req.body.payload,
+                user: req.body.user,
                 total: users.length,
                 users,
             })

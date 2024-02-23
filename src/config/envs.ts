@@ -9,4 +9,6 @@ export const envs = {
 
     MONGO_DATABASE_URL: get('MONGO_DATABASE_URL').required().asString(),
     MONGO_DATABASE_NAME: get('MONGO_DATABASE_NAME').required().asString(),
+
+    JWT_SEED: get('JWT_SEED').required().asString(),
 }

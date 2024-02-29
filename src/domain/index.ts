@@ -1,6 +1,7 @@
 
 
 export * from './dtos/auth/registerUser.dto';
+export * from './dtos/auth/loginUser.dto';
 
 export * from './entities/user.entity';
 

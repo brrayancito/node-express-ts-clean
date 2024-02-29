@@ -1,6 +1,7 @@
 import { BcryptAdapter } from "../../config";
 import { UserModel } from "../../data/mongodb";
 import { AuthDatasource, CustomError, RegisterUserDto, UserEntity } from "../../domain";
+import { LoginUserDto } from "../../domain/dtos/auth/loginUser.dto";
 import { UserMapper } from "../mappers/user.mapper";
 
 type hashPasswordFunction = (password: string) => string
@@ -38,6 +39,27 @@ export class AuthDatasourceImpl implements AuthDatasource {
 
             throw CustomError.internalServer();
 
+        }
+    }
+
+    async login(loginUserDto: LoginUserDto): Promise<UserEntity> {
+
+        const { email, password } = loginUserDto;
+
+        try {
+            const user = await UserModel.findOne({ email: email });
+            if (!user) throw CustomError.badRequest("User not found");
+
+            if (!this.comparePasswordFunc(password, user.password)) {
+                throw CustomError.badRequest("Invalid credentials");
+            }
+
+            return UserMapper.userEntityFromObject(user);
+
+        } catch (error) {
+            if (error instanceof CustomError) throw error;
+
+            throw CustomError.internalServer();
         }
     }
 

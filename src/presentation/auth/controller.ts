@@ -35,9 +35,7 @@ export class AuthController {
 
     }
 
-    loginUser = (req: Request, res: Response) => {
-        res.json({
-            message: "loginUser method"
-        })
+    loginUser = async (req: Request, res: Response) => {
+
     }
 }

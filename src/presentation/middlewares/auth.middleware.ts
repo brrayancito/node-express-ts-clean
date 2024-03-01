@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { JwtAdapter } from "../../config";
 import { UserModel } from "../../data/mongodb";
+import { UserMapper } from "../../infraestructure";
 
 
 export class AuthMiddleware {
@@ -21,7 +22,9 @@ export class AuthMiddleware {
             const user = await UserModel.findById(payload.id);
             if (!user) return res.status(401).json({ message: 'Invalid Token' });
 
-            req.body.user = user;
+
+
+            req.body.user = UserMapper.userEntityFromObject(user);
 
             next();
         } catch (error) {

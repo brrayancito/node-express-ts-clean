@@ -43,10 +43,16 @@ export class AuthController {
 
         try {
             const user = await this.authRepository.login(loginUserDto!);
+            const token = await JwtAdapter.generateToken({ id: user.id });
+
+            if (!token) throw CustomError.internalServer('Something went wrong on generating token!')
 
             req.body.user = user;
+            req.body.token = token;
+
             return res.status(200).json({
                 message: `Login Successful, Mr ${user.name} `,
+                token
             })
 
 
